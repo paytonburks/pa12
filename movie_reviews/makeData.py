@@ -42,11 +42,34 @@ def makeBagOfWords(reviewLst):
         bag = bag + words
     return bag
 
+def makeBagOfWords_rev(reviewLst):
+    '''
+    Extract words for each review
+    Throw out those that are not alphabetic as well as short frequent English words
+    Add the result to bag
+    At the end, bag will be the list of words in a certain category of review.
+    Use NLTK functions
+    '''
+                  
+    bag = []
+    for review in reviewLst:
+        words = movie_reviews.words(review)  #list of words in a review 
+        words = [word for word in words if word.isalpha()] #remove items witn non-alpha chars
+        stop_words = set(stopwords.words('english'))
+        words = [word for word in words if word not in stop_words] #stop words removed
+        bag = bag + [words]
+    return bag
 
 def writeFile(fileName,dataName):
     with open(fileName,'w') as fout:
         for item in dataName:
             fout.write('%s\n' %item)
+    fout.close()
+
+def writeFile1(fileName,dataName):
+    with open(fileName,'w') as fout:
+        for item in dataName:
+            fout.write('%s ' %item)
     fout.close()
 
     
@@ -65,14 +88,13 @@ def main():
     posBagOfWords = makeBagOfWords(pos)
     negBagOfWords = makeBagOfWords(neg)
 
-    testPosBagofWords = makeBagOfWords(posTst)
-    testNegBagOfWords = makeBagOfWords(negTst)
-
     writeFile('pos.txt',posBagOfWords)
     writeFile('neg.txt',negBagOfWords)
     
-    writeFile('posTst.txt',testPosBagofWords)
-    writeFile('negTst.txt',testNegBagOfWords)
+    posTstBag = makeBagOfWords_rev(posTst)
+    negTstBag = makeBagOfWords_rev(negTst)
+
+    writeFile1('posTst.txt',posTstBag)
+    writeFile1('negTst.txt',negTstBag)
         
-    
 main()

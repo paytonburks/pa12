@@ -130,6 +130,6 @@ class MyNaiveBayesClassifier:
                         # if word is not in either dict
                         pass
                 percentage_vals[key] = val
-            print(percentage_vals)
             y_predicted.append(max(percentage_vals, key=percentage_vals.get))
-        print(y_predicted)
+        
+        return y_predicted
