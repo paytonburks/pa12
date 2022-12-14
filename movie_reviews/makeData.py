@@ -21,7 +21,7 @@ def makeReviewLsts(category,fract):
     for i in range(tstNum):
         idx = random.randint(0,len(trainLst) - 1)
         tstLst.append(trainLst[idx])
-        trainLst.pop(idx);
+        trainLst.pop(idx)
     return trainLst, tstLst
 
 def makeBagOfWords(reviewLst):
@@ -58,6 +58,7 @@ def makeBagOfWords_rev(reviewLst):
         stop_words = set(stopwords.words('english'))
         words = [word for word in words if word not in stop_words] #stop words removed
         bag = bag + [words]
+
     return bag
 
 def writeFile(fileName,dataName):
@@ -72,7 +73,6 @@ def writeFile1(fileName,dataName):
             fout.write('%s ' %item)
     fout.close()
 
-    
 def main():
     '''
     pos & neg hold files names containing positive and negative reviews minus
@@ -94,7 +94,10 @@ def main():
     posTstBag = makeBagOfWords_rev(posTst)
     negTstBag = makeBagOfWords_rev(negTst)
 
-    writeFile1('posTst.txt',posTstBag)
-    writeFile1('negTst.txt',negTstBag)
-        
-main()
+    testBag = []
+    testBag = posTstBag + negTstBag
+    #testBag = negTstBag
+    return testBag
+
+    #writeFile1('posTst.txt',posTstBag)
+    #writeFile1('negTst.txt',negTstBag)

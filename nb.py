@@ -109,11 +109,9 @@ class MyNaiveBayesClassifier:
 
     def predict(self, X_test):
         """Makes predictions for test instances in X_test.
-
         Args:
             X_test(list of list of obj): The list of testing samples
                 The shape of X_test is (n_test_samples, n_features)
-
         Returns:
             y_predicted(list of obj): The predicted target y values (parallel to X_test)
         """
@@ -133,3 +131,24 @@ class MyNaiveBayesClassifier:
             y_predicted.append(max(percentage_vals, key=percentage_vals.get))
         
         return y_predicted
+
+    def count_prediction(self, senti_array):
+        pos = 0
+        neg = 0
+        for ch in senti_array:
+            if ch == '+':
+                pos+=1
+            if ch == '-':
+                neg+=1
+        
+        return pos, neg
+
+    def get_pos_skew():
+        file_neg = open("movie_reviews/neg.txt","r")
+        neg_dict_count = len(file_neg.readlines())
+
+        file_pos = open("movie_reviews/pos.txt","r")
+        pos_dict_count = len(file_pos.readlines())
+
+        pos_skew = pos_dict_count/neg_dict_count
+        return pos_skew
