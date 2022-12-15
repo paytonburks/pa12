@@ -151,7 +151,6 @@ class MyNaiveBayesClassifier:
                     truth_arr.append('-')
         return truth_arr, false_arr
 
-    '''
     def count_prediction(self, senti_array):
         pos = 0
         neg = 0
@@ -208,7 +207,6 @@ class MyNaiveBayesClassifier:
                 overall_neg+=1
             
         return overall_pos, overall_neg
-    '''
 
     def makeConfusionMatrix(self):
         actual = []
