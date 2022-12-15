@@ -1,5 +1,6 @@
 import myutils
 import copy
+from movie_reviews import makeData
 
 class MyNaiveBayesClassifier:
     """
@@ -132,6 +133,25 @@ class MyNaiveBayesClassifier:
         
         return y_predicted
 
+    def create_martix(truth, senti_array):
+        truth_arr = []
+        false_arr = []
+
+        if truth == '+':
+            for ch in senti_array:
+                if ch == '+':
+                    truth_arr.append('+')
+                if ch == '-':
+                    false_arr.append('-')
+        else:
+            for ch in senti_array:
+                if ch == '+':
+                    false_arr.append('+')
+                if ch == '-':
+                    truth_arr.append('-')
+        return truth_arr, false_arr
+
+    '''
     def count_prediction(self, senti_array):
         pos = 0
         neg = 0
@@ -152,3 +172,59 @@ class MyNaiveBayesClassifier:
 
         pos_skew = pos_dict_count/neg_dict_count
         return pos_skew
+
+    def posTestPredict(self):
+        #POSITIVE TEST BAG PREDICTION
+        posTestBag, negTestBag = makeData.main()
+        i = 1
+        overall_neg = 0
+        overall_pos = 0
+        for review in posTestBag:
+            predicted = self.predict(review)
+            pos, neg = self.count_prediction(predicted)
+
+            skew = self.get_pos_skew()
+            if pos > neg*skew:
+                overall_pos+=1
+            else:
+                overall_neg+=1
+            
+        return overall_pos, overall_neg
+
+    def negTestPredict(self):
+        #NEGATIVE TEST BAG PREDICTION
+        posTestBag, negTestBag = makeData.main()
+        i = 1
+        overall_neg = 0
+        overall_pos = 0
+        for review in negTestBag:
+            predicted = self.predict(review)
+            pos, neg = self.count_prediction(predicted)
+
+            skew = self.get_pos_skew()
+            if pos > neg*skew:
+                overall_pos+=1
+            else:
+                overall_neg+=1
+            
+        return overall_pos, overall_neg
+    '''
+
+    def makeConfusionMatrix(self):
+        actual = []
+        predicted = []
+
+        # true_pos, false_neg = self.posTestPredict()
+        # actual.append(true_pos)
+        # predicted.append(false_neg)
+
+        # false_pos, true_neg = self.negTestPredict()
+        # actual.append(false_pos)
+        # predicted.append(true_neg)
+
+
+        confusion_matrix = metrics.confusion_matrix(actual, predicted)
+        cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = ["Positive", "Negative"])
+
+        cm_display.plot()
+        plt.show()

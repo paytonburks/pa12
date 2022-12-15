@@ -94,10 +94,10 @@ def main():
     posTstBag = makeBagOfWords_rev(posTst)
     negTstBag = makeBagOfWords_rev(negTst)
 
-    testBag = []
-    testBag = posTstBag + negTstBag
+    #testBag = []
+    #testBag = posTstBag + negTstBag
     #testBag = negTstBag
-    return testBag
+    return posTstBag, negTstBag
 
     #writeFile1('posTst.txt',posTstBag)
     #writeFile1('negTst.txt',negTstBag)
